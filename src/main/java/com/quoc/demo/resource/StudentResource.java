@@ -29,7 +29,6 @@ public class StudentResource {
     }
 
 
-
     @RequestMapping(
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -40,12 +39,29 @@ public class StudentResource {
     }
 
 
-
     @RequestMapping(
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public void insertNewStudent(@RequestBody Student newStudent) {
         studentService.persistNewStudent(UUID.randomUUID(), newStudent);
+    }
+
+
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public void getStudentService(@RequestBody Student updatedStudent) {
+        studentService.updateStudentById(updatedStudent.getId(), updatedStudent);
+    }
+
+
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            path = "{studentId}"
+    )
+    public void deleteById(@PathVariable("studentId") UUID studentId) {
+        studentService.deleteStudentById(studentId);
     }
 }
